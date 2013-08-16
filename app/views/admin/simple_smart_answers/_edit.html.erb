@@ -10,14 +10,16 @@
       <%= f.semantic_fields_for :nodes, @resource.nodes, :wrapper_class => lambda {|n| return "row node #{n.kind}" } do |node| %>
         <%= render :partial => "admin/simple_smart_answers/node", :locals => { :f => node } %>
       <% end %>
+      <div id="questions"></div>
+      <div id="outcomes"></div>
     </div>
 
     <hr>
 
     <div class="row">
       <div class="span8">
-        <%= f.link_to_add "<i class=\"icon-plus-sign icon-white\"></i> Add question".html_safe, :nodes, :class => "btn btn-primary add-question", :data => { :target => "#nodes" } %>
-        <%= f.link_to_add "<i class=\"icon-plus-sign icon-white\"></i> Add outcome".html_safe, :nodes, :class => "btn btn-danger add-outcome", :data => { :target => "#nodes" } %>
+        <%= f.link_to_add "<i class=\"icon-plus-sign icon-white\"></i> Add question".html_safe, :nodes, :class => "btn btn-primary add-question", :data => { :target => "#questions" } %>
+        <%= f.link_to_add "<i class=\"icon-plus-sign icon-white\"></i> Add outcome".html_safe, :nodes, :class => "btn btn-danger add-outcome", :data => { :target => "#outcomes" } %>
       </div>
     </div>
   </div>
