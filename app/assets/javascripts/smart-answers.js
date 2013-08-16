@@ -126,7 +126,7 @@
       });
     },
     optionsForNode: function(node) {
-      var nextNodes = node.nextAll(':visible');
+      var nextNodes = node.nextAll(':visible').add('.node:visible', '#outcomes');
 
       return $.map( nextNodes, function(nodeContainer, i) {
         node = $(nodeContainer);
