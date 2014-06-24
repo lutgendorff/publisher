@@ -7,16 +7,15 @@
     <%= publication.format.underscore.humanize %>
   </td>
   <td class="title">
-    <a href="#" class="bold" style="font-size: 16px; line-height: 14px">
-      <%= publication.admin_list_title %>
-    </a><br />
+    <%= link_to publication.admin_list_title, edition_path(publication), class: 'bold', style: 'font-size: 16px; line-height: 14px' %>
+    <br />
     <span class="">
       <% if publication.section.length > 0 %>
         <span class="text-muted">
           <%= publication.section %><br />
         </span>
       <% end %>
-      /<%= publication.slug %> &middot;
+      <%= link_to "/#{publication.slug }", preview_edition_path(publication), class: 'inherit' %> &middot;
       <% if tab && (tab == :published || tab == :archived) %>
         #<%= publication.version_number %>
         <% if publication.subsequent_siblings.first.present? %>
@@ -26,15 +25,14 @@
         <abbr data-toggle="tooltip" title="Edition <%= publication.version_number %>">#<%= publication.version_number %></abbr>
       <% end %>
     </span>
-
-
-
     <% if publication.has_video? %>
-      <i class="glyphicon glyphicon-film" alt="Has video"></i>
+      &middot; <i class="glyphicon glyphicon-film" alt="Has video"></i>
     <% end %>
   </td>
   <td>
-    <%= publication.updated_at.to_s(:govuk_date) %>
+    <span title="<%= publication.updated_at.to_s(:govuk_date) %>" data-toggle="tooltip">
+      <%= publication.updated_at.to_date.to_s(:govuk_date) %>
+    </span>
   </td>
   <% if tab && tab == :fact_check %>
   <td>
@@ -47,11 +45,8 @@
   </td>
   <% end %>
   <td>
-    <%= publication.assignee %>
+    Paul Hayes
   </td>
-    <td>
-      <%= publication.creator %>
-    </td>
     <% if tab && tab == :archived %>
     <td>
       <%= publication.archiver %>
@@ -71,6 +66,7 @@
     <% end %>
   <td class="text-right">
     <div class="btn-group">
+
     <% if tab and tab == :archived and publication.can_create_new_edition? %>
       <%= form_tag duplicate_edition_path(publication) do %>
         <%= submit_tag 'Create edition', :class => 'btn btn-success' %>
@@ -83,6 +79,6 @@
     <% else %>
       <i class="glyphicon glyphicon-ban-circle" title="Preview disabled for this publication"></i>
     <% end %>
-    </div>
+  </div>
   </td>
 </tr>

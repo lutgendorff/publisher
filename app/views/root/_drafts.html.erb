@@ -1,13 +1,20 @@
 <table class="table table-hover table-bordered" summary="List of &ldquo;Draft&rdquo; content">
   <thead>
     <tr class="table-header">
-      <th scope="col" style="width: 100px"><%= sortable "_type" %></th>
-      <th scope="col" style="width: 400px"><%= sortable "title" %></th>
-      <th scope="col" style="width: 200px"><%= sortable "updated_at", "Updated" %></th>
-      <th scope="col"><%= sortable "assignee", "Assigned to" %></th>
-      <th scope="col"><%= sortable "creator", "Created by" %></th>
-      <th scope="col" class="column-actions" style="width: 150px">Actions</th>
+      <th scope="col" style="width: 80px"><%= sortable "_type" %></th>
+      <th scope="col" style=""><%= sortable "title" %></th>
+      <th scope="col" style="width: 140px"><%= sortable "updated_at", "Updated" %></th>
+      <th scope="col" style="width: 140px"><%= sortable "assignee", "Assigned to" %></th>
+      <th scope="col" class="column-actions" style="width: 146px">Actions</th>
     </tr>
+    <!--<tr class="table-header-secondary">
+      <th colspan="6">
+        <form>
+          <label for="table-filter" class="rm">Filter organisations</label>
+          <input id="table-filter" type="text" class="form-control normal js-filter-table-input" placeholder="Filter list of publications">
+        </form>
+      </th>
+    </tr>-->
   </thead>
   <tbody>
     <%= render :collection => @presenter.draft, :partial => 'publication', :locals => {:tab => :draft, :with => with} %>
