@@ -57,16 +57,13 @@
       <% end %>
     </td>
     <% end %>
-    <% if tab && [:archived, :scheduled_for_publishing].include?(tab) %>
-    <td class="icon">
-      <%= link_to edition_path(publication) do %>
-        <i class="glyphicon glyphicon-lock" title="Locked view for this publication"></i>
-      <% end %>
-    </td>
-    <% end %>
   <td class="text-right">
     <div class="btn-group">
-
+    <% if tab && [:archived, :scheduled_for_publishing].include?(tab) %>
+      <%= link_to edition_path(publication), class: 'btn btn-default', title: "Locked view for this publication", 'data-toggle' => 'tooltip' do %>
+        <span class="glyphicon glyphicon-lock"></span>
+      <% end %>
+    <% end %>
     <% if tab and tab == :archived and publication.can_create_new_edition? %>
       <%= form_tag duplicate_edition_path(publication) do %>
         <%= submit_tag 'Create edition', :class => 'btn btn-success' %>
@@ -79,6 +76,6 @@
     <% else %>
       <i class="glyphicon glyphicon-ban-circle" title="Preview disabled for this publication"></i>
     <% end %>
-  </div>
+    </div>
   </td>
 </tr>

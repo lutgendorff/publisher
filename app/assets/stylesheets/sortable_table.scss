@@ -27,3 +27,27 @@ th .current {
 #current td {
   background-color: #adf;
 }
+
+.column-format {
+  width: 80px;
+}
+
+.column-updated {
+  width: 140px;
+}
+
+.column-assignee {
+  width: 140px;
+}
+
+.column-actions {
+  width: 146px;
+}
+
+.column-actions-with-lock {
+  width: 184px;
+}
+
+.column-actions-published {
+  width: 260px;
+}

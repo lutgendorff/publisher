@@ -1,11 +1,11 @@
 <table class="table table-hover table-bordered" summary="List of &ldquo;Draft&rdquo; content">
   <thead>
     <tr class="table-header">
-      <th scope="col" style="width: 80px"><%= sortable "_type" %></th>
-      <th scope="col" style=""><%= sortable "title" %></th>
-      <th scope="col" style="width: 140px"><%= sortable "updated_at", "Updated" %></th>
-      <th scope="col" style="width: 140px"><%= sortable "assignee", "Assigned to" %></th>
-      <th scope="col" class="column-actions" style="width: 146px">Actions</th>
+      <th scope="col" class="column-format"><%= sortable "_type" %></th>
+      <th scope="col" class="column-title"><%= sortable "title" %></th>
+      <th scope="col" class="column-updated"><%= sortable "updated_at", "Updated" %></th>
+      <th scope="col" class="column-assignee"><%= sortable "assignee", "Assigned to" %></th>
+      <th scope="col" class="column-actions">Actions</th>
     </tr>
     <!--<tr class="table-header-secondary">
       <th colspan="6">

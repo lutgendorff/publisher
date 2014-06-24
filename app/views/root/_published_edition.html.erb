@@ -6,22 +6,28 @@
   <td>
     <%= publication.format.underscore.humanize %>
   </td>
-  <td>
-    <p>
-      <%= publication.admin_list_title %>
-
-      &mdash; Ed. <%= publication.version_number %>
-      <% unless publication.can_create_new_edition? %>
-      (Ed. <%= publication.sibling_in_progress %> in draft)
+  <td class="title">
+    <%= link_to publication.admin_list_title, edition_path(publication), class: 'bold', style: 'font-size: 16px; line-height: 14px' %>
+    <br />
+    <span class="">
+      <% if publication.section.length > 0 %>
+        <span class="text-muted">
+          <%= publication.section %><br />
+        </span>
       <% end %>
-
-      <% if publication.has_video? %>
-        <i class="glyphicon glyphicon-film" alt="Has video"></i>
+      <%= link_to "/#{publication.slug }", preview_edition_path(publication), class: 'inherit' %> &middot;
+      <% if tab && (tab == :published || tab == :archived) %>
+        #<%= publication.version_number %>
+        <% if publication.subsequent_siblings.first.present? %>
+          #<%= publication.subsequent_siblings.first.version_number %> in <%= publication.subsequent_siblings.first.state.humanize.downcase %>)
+        <% end%>
+      <% else %>
+        <abbr data-toggle="tooltip" title="Edition <%= publication.version_number %>">#<%= publication.version_number %></abbr>
       <% end %>
-    </p>
-  </td>
-  <td>
-    <%= publication.slug %>
+    </span>
+    <% if publication.has_video? %>
+      &middot; <i class="glyphicon glyphicon-film" alt="Has video"></i>
+    <% end %>
   </td>
   <td>
     <%= timestamp(publication.updated_at) %>
@@ -30,35 +36,29 @@
     <%= publication.assignee %>
   </td>
   <td>
-    <%= publication.creator %>
-  </td>
-  <td>
-    <%= publication.section %>
-  </td>
-  <td>
     <%= publication.publisher %>
   </td>
-  <td class="icon">
-    <%= link_to publication_front_end_path(publication) do %>
+  <td class="text-right">
+    <div class="btn-group">
+    <%= link_to preview_edition_path(publication), class: 'btn btn-default' do %>
+      <i class="glyphicon glyphicon-eye-open" title="Preview this publication"></i>
+    <% end %>
+
+    <%= link_to publication_front_end_path(publication), class: 'btn btn-default' do %>
       <i class="glyphicon glyphicon-share-alt" title="View this publication"></i>
     <% end %>
-  </td>
-  <td class="icon">
-    <%#edition_path(publication) %>
-    <%= link_to "/editions/#{publication.id}" do %>
-      <i class="glyphicon glyphicon-lock" title="Locked view for this publication"></i>
+
+    <%= link_to "/editions/#{publication.id}", class: 'btn btn-default', title: "Locked view for this publication", 'data-toggle' => 'tooltip' do %>
+      <span class="glyphicon glyphicon-lock"></span>
     <% end %>
-  </td>
-  <td class="duplicate icon">
+
     <% if publication.can_create_new_edition? %>
-      <%= button_to "Create new edition of this publication", duplicate_edition_path(publication), class: 'btn btn-default btn-sm' %>
+      <%= link_to duplicate_edition_path(publication), class: 'btn btn-default' do %>
+        <span class="glyphicon glyphicon-plus"></span>
+      <% end %>
     <% else %>
       <%= link_to 'Edit existing newer edition', edition_path(publication.in_progress_sibling), html_options = { "class" => ""} %>
     <% end %>
-  </td>
-  <td class="icon">
-    <%= link_to preview_edition_path(publication) do %>
-      <i class="glyphicon glyphicon-eye-open" title="Preview this publication"></i>
-    <% end %>
+    </div>
   </td>
 </tr>
