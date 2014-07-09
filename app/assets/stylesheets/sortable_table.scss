@@ -32,8 +32,16 @@ th .current {
   width: 80px;
 }
 
+.column-scheduled {
+  width: 160px;
+}
+
 .column-updated {
-  width: 140px;
+  width: 120px;
+}
+
+.column-sent-out {
+  width: 120px;
 }
 
 .column-assignee {
@@ -49,5 +57,9 @@ th .current {
 }
 
 .column-actions-published {
-  width: 260px;
+  width: 210px;
+}
+
+.column-actions-archived {
+  width: 250px;
 }

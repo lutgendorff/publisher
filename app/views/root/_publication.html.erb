@@ -9,13 +9,8 @@
   <td class="title">
     <%= link_to publication.admin_list_title, edition_path(publication), class: 'bold', style: 'font-size: 16px; line-height: 14px' %>
     <br />
-    <span class="">
-      <% if publication.section.length > 0 %>
-        <span class="text-muted">
-          <%= publication.section %><br />
-        </span>
-      <% end %>
-      <%= link_to "/#{publication.slug }", preview_edition_path(publication), class: 'inherit' %> &middot;
+    <span class="text-muted">
+      <%= link_to "/#{publication.slug }", preview_edition_path(publication), class: 'inherit', title: 'Preview' %> &middot;
       <% if tab && (tab == :published || tab == :archived) %>
         #<%= publication.version_number %>
         <% if publication.subsequent_siblings.first.present? %>
@@ -30,44 +25,44 @@
     <% end %>
   </td>
   <td>
-    <span title="<%= publication.updated_at.to_s(:govuk_date) %>" data-toggle="tooltip">
-      <%= publication.updated_at.to_date.to_s(:govuk_date) %>
+    <span title="<%= publication.updated_at.to_s(:govuk_date_short) %>" data-toggle="tooltip">
+      <%= publication.updated_at.to_date.to_s(:govuk_date_short) %>
     </span>
   </td>
   <% if tab && tab == :fact_check %>
   <td>
-    <%= timestamp(publication.last_fact_checked_at) %>
+    <span title="<%= publication.last_fact_checked_at.to_s(:govuk_date_short) %>" data-toggle="tooltip">
+      <%= publication.last_fact_checked_at.to_date.to_s(:govuk_date_short) %>
+    </span>
   </td>
   <% end %>
   <% if tab && tab == :scheduled_for_publishing %>
   <td>
-    <%= timestamp(publication.publish_at) %>
+    <%= publication.publish_at.to_s(:govuk_date_short) %>
   </td>
   <% end %>
   <td>
     Paul Hayes
   </td>
-    <% if tab && tab == :archived %>
+  <% if tab && tab == :archived %>
     <td>
       <%= publication.archiver %>
     </td>
-    <td class="icon">
+    <!--<td class="icon">
       <%= link_to publication_front_end_path(publication) do %>
         <i class="glyphicon glyphicon-share-alt" title="View this publication"></i>
       <% end %>
-    </td>
-    <% end %>
+    </td>-->
+  <% end %>
   <td class="text-right">
     <div class="btn-group">
     <% if tab && [:archived, :scheduled_for_publishing].include?(tab) %>
-      <%= link_to edition_path(publication), class: 'btn btn-default', title: "Locked view for this publication", 'data-toggle' => 'tooltip' do %>
+      <!--<%= link_to edition_path(publication), class: 'btn btn-default', title: "Locked view for this publication", 'data-toggle' => 'tooltip' do %>
         <span class="glyphicon glyphicon-lock"></span>
-      <% end %>
+      <% end %>-->
     <% end %>
     <% if tab and tab == :archived and publication.can_create_new_edition? %>
-      <%= form_tag duplicate_edition_path(publication) do %>
-        <%= submit_tag 'Create edition', :class => 'btn btn-success' %>
-      <% end %>
+      <span class="btn btn-default">Create new edition</span>
     <% else %>
       <%= link_to 'Edit', edition_path(publication), class: 'btn btn-default' %>
     <% end %>
